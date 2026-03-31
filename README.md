@@ -1,4 +1,88 @@
 # taichung-travel
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>台中旅遊導覽</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&family=Noto+Sans+TC:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #c9a84c;
+      --dark: #1a1a2e;
+      --mid: #16213e;
+      --accent: #e94560;
+      --light: #f5f0e8;
+      --cream: #fdf6e3;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Noto Sans TC', sans-serif; background: var(--cream); color: var(--dark); overflow-x: hidden; }
+
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--dark) 0%, var(--mid) 50%, #0f3460 100%);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 20% 50%, rgba(201,168,76,0.15) 0%, transparent 60%),
+                  radial-gradient(ellipse at 80% 20%, rgba(233,69,96,0.1) 0%, transparent 50%);
+    }
+    .hero-deco {
+      position: absolute; font-size: 20rem; font-family: 'Noto Serif TC', serif; font-weight: 900;
+      color: rgba(201,168,76,0.04); top: 50%; left: 50%; transform: translate(-50%,-50%);
+      white-space: nowrap; pointer-events: none; user-select: none;
+    }
+    .hero-tag { font-size:.75rem; letter-spacing:.4em; color:var(--gold); text-transform:uppercase; margin-bottom:1.5rem; opacity:0; animation:fadeUp .8s ease .2s forwards; position:relative; }
+    .hero h1 { font-family:'Noto Serif TC',serif; font-size:clamp(2rem,6vw,4.5rem); font-weight:900; color:var(--light); line-height:1.3; max-width:800px; padding:0 2rem; opacity:0; animation:fadeUp .8s ease .4s forwards; position:relative; }
+    .hero h1 span { color:var(--gold); }
+    .hero-sub { margin-top:1.5rem; font-size:1rem; color:rgba(245,240,232,0.6); letter-spacing:.1em; opacity:0; animation:fadeUp .8s ease .6s forwards; position:relative; }
+    .hero-line { width:60px; height:2px; background:var(--gold); margin:2rem auto; opacity:0; animation:fadeUp .8s ease .8s forwards; position:relative; }
+    nav { display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; padding:0 2rem; opacity:0; animation:fadeUp .8s ease 1s forwards; position:relative; }
+    nav button { background:transparent; border:1px solid rgba(201,168,76,0.5); color:var(--gold); padding:.65rem 1.6rem; font-family:'Noto Sans TC',sans-serif; font-size:.9rem; letter-spacing:.1em; cursor:pointer; transition:all .3s ease; position:relative; overflow:hidden; }
+    nav button::before { content:''; position:absolute; inset:0; background:var(--gold); transform:translateX(-100%); transition:transform .3s ease; z-index:0; }
+    nav button:hover::before { transform:translateX(0); }
+    nav button:hover { color:var(--dark); }
+    nav button span { position:relative; z-index:1; }
+
+    section { padding:6rem 2rem; max-width:1100px; margin:0 auto; }
+    .section-header { text-align:center; margin-bottom:3.5rem; }
+    .section-label { font-size:.7rem; letter-spacing:.5em; color:var(--gold); text-transform:uppercase; display:block; margin-bottom:.75rem; }
+    .section-title { font-family:'Noto Serif TC',serif; font-size:clamp(1.8rem,4vw,2.8rem); font-weight:700; color:var(--dark); line-height:1.3; }
+    .divider { width:50px; height:2px; background:var(--accent); margin:1.2rem auto 0; }
+.gallery { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:1.5rem; }
+    .card { background:white; border-radius:2px; overflow:hidden; box-shadow:0 4px 20px rgba(0,0,0,0.08); transition:transform .3s ease,box-shadow .3s ease; }
+    .card:hover { transform:translateY(-6px); box-shadow:0 12px 40px rgba(0,0,0,0.15); }
+    .card-img { width:100%; height:220px; object-fit:cover; display:block; background:#e8e0d0; }
+    .card-body { padding:1.25rem 1.5rem 1.5rem; }
+    .card-tag { font-size:.65rem; letter-spacing:.3em; color:var(--gold); text-transform:uppercase; display:block; margin-bottom:.5rem; }
+    .card-title { font-family:'Noto Serif TC',serif; font-size:1.15rem; font-weight:700; color:var(--dark); margin-bottom:.5rem; }
+    .card-desc { font-size:.85rem; color:#666; line-height:1.7; }
+
+    .photos-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:.75rem; }
+    .photo-item { aspect-ratio:3/4; border-radius:2px; overflow:hidden; position:relative; cursor:pointer; }
+    .photo-item img { width:100%; height:100%; object-fit:cover; transition:transform .4s ease; display:block; }
+    .photo-item:hover img { transform:scale(1.08); }
+    .photo-label { position:absolute; bottom:0; left:0; right:0; padding:.75rem; background:linear-gradient(transparent,rgba(0,0,0,0.7)); color:white; font-size:.8rem; font-family:'Noto Serif TC',serif; text-align:center; }
+
+    footer { background:var(--dark); color:rgba(245,240,232,0.5); text-align:center; padding:3rem 2rem; font-size:.85rem; letter-spacing:.1em; }
+    footer .footer-title { font-family:'Noto Serif TC',serif; font-size:1.5rem; color:var(--gold); margin-bottom:.75rem; }
+    .bg-alt { background:#f0ebe0; }
+
+    @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+    .reveal { opacity:0; transform:translateY(30px); transition:opacity .7s ease,transform .7s ease; }
+    .reveal.visible { opacity:1; transform:none; }
+
+    @media(max-width:600px) {
+      .photos-grid { grid-template-columns:repeat(2,1fr); }
+      nav { gap:.6rem; }
+      nav button { padding:.55rem 1rem; font-size:.8rem; }
+    }
+  </style>
+</head>
+<body>
+
 <div class="hero">
   <div class="hero-deco">台中</div>
   <p class="hero-tag">Taiwan · Taichung · 台灣中部</p>
